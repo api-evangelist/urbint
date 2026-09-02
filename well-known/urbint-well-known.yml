@@ -1,0 +1,86 @@
+generated: '2026-09-02'
+method: probed
+source: live HTTP probes of every Urbint-controlled host, 2026-09-02
+summary: >-
+  Urbint serves no /.well-known document of its own. www.urbint.com answers 301 to
+  na.itron.com for every /.well-known path (the site is mid-migration into Itron), and
+  the one 200 found across the estate — a security.txt on customer.support.urbint.com —
+  is Atlassian's canonical file, served because that host is an Atlassian Jira Service
+  Management portal. No WellKnown or SecurityTxt pointer is emitted for it: it asserts
+  Atlassian's disclosure programme, not Urbint's.
+hosts:
+- host: www.urbint.com
+  note: HubSpot-hosted marketing site; unknown paths 301 to
+    https://na.itron.com/what-we-offer/resiliency-solutions-overview
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 301
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 301
+    file: null
+  - path: /.well-known/api-catalog
+    status: 301
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 301
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 301
+    file: null
+  - path: /.well-known/agent.json
+    status: 301
+    file: null
+- host: customer.support.urbint.com
+  note: Atlassian Jira Service Management portal (server AtlassianEdge); / 302s to
+    /servicedesk then 303 to /servicedesk/customer/portals
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: urbint-support-security.txt
+    third_party: true
+    third_party_note: PGP-signed Atlassian security.txt — Canonical is
+      https://www.atlassian.com/.well-known/security.txt and Contact is
+      security@atlassian.com. Served by the helpdesk vendor, NOT authored or operated
+      by Urbint. Saved as evidence of the false positive, not as an Urbint artifact.
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: api.urbint.com
+  note: no HTTP response — connection timed out after 12s
+  documents:
+  - path: /.well-known/security.txt
+    status: <no response>
+    file: null
+- host: developer.urbint.com
+  note: NXDOMAIN — host does not resolve
+  documents:
+  - path: /.well-known/security.txt
+    status: <no response>
+    file: null
+- host: docs.urbint.com
+  note: NXDOMAIN — host does not resolve
+  documents:
+  - path: /.well-known/security.txt
+    status: <no response>
+    file: null
+first_party_documents: 0
+agent_card_found: false

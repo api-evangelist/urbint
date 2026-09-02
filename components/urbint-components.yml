@@ -1,0 +1,68 @@
+generated: '2026-09-02'
+method: searched
+source: https://registry.npmjs.org/@urbint%2Fcl (README + package/llms.txt inside the
+  1.0.1-3 tarball, read 2026-09-02)
+name: Urbint Component Library (@urbint/cl)
+summary: >-
+  Urbint's only publicly distributed UI surface is @urbint/cl, an enterprise React
+  Native design system built on Unistyles 3.0 covering iOS, Android and Web. It is a
+  developer-facing component library, not an embeddable customer-facing widget or a
+  hosted checkout-style element — Urbint publishes no embed script, no web component
+  and no hosted iframe surface.
+distribution:
+  registry: npm
+  package: '@urbint/cl'
+  version: 1.0.1-3
+  published: '2026-02-10'
+  license: MIT
+  install: npm install @urbint/cl react-native-unistyles
+  loader: "import '@urbint/cl/styles' then import components from '@urbint/cl'"
+  requirements:
+  - React Native 0.81+
+  - Expo SDK 54+
+  - Unistyles 3.0+
+  - TypeScript 5.0+
+  - Node.js 20+
+families:
+- family: Layout
+  components: [Box, Center, HStack, VStack, Grid, GridItem, Divider]
+- family: Typography
+  components: [Text, Heading, Link]
+- family: Form controls
+  components: [Input, Textarea, Checkbox, CheckboxGroup, Radio, RadioGroup, Select,
+    Switch, Slider, FormControl]
+- family: Feedback
+  components: [Alert, Toast, ToastProvider, Progress, Spinner, Skeleton, SkeletonText]
+- family: Overlays
+  components: [Modal, Drawer, AlertDialog, ActionSheet, Popover, Menu, Tooltip]
+- family: Data display
+  components: [Avatar, AvatarGroup, Badge, Card, Table, Image, Icon]
+- family: Actions
+  components: [Button, Pressable, Fab, Accordion]
+- family: Utilities
+  components: [Portal, PortalProvider]
+component_count: 40
+theming:
+  modes: [light, dark]
+  follows_system_preference: true
+  hook: useUnistyles
+design_tokens:
+  documented: true
+  categories: [colors, spacing, typography, borderRadius, elevation]
+  brand_colors:
+    brand.navy: '#003F53'
+    brand.blue: '#00A0CC'
+  spacing_scale: base 4px, with 0.5x/2x/3x/4x/6x/8x/12x/18x steps
+  elevation_levels: [5, 10, 20, 30, 40]
+documentation:
+  storybook: shipped in-package (npm run storybook / storybook:ios / storybook:android)
+  llms_txt: llms/urbint-cl-llms.txt (verbatim, 56,801 bytes)
+  mcp: mcp/urbint-mcp.yml — an MCP server that exposes this component and token
+    registry to AI assistants
+accessibility_claim: WCAG 2.1 compliant (claimed in the package's own llms.txt; not
+  independently verified)
+note: >-
+  The linked source repository github.com/urbint/urbint-cl returns 404, so the library
+  is only obtainable as an npm tarball. Nothing in this artifact was authored by API
+  Evangelist — every component name, token value and requirement is read from the
+  package Urbint published.

@@ -1,0 +1,2176 @@
+# Urbint Component Library (@urbint/cl) - LLM Documentation
+
+> This documentation is designed for LLM consumption to assist developers using the Urbint Component Library.
+
+## Overview
+
+Urbint Component Library (`@urbint/cl`) is an enterprise-ready React Native component library built with Unistyles 3.0. It provides 40+ production-ready components for B2B SAAS applications across iOS, Android, and Web platforms.
+
+**Key Features:**
+- Cross-platform: iOS, Android, Web
+- Full TypeScript support
+- Light and Dark themes
+- Accessible (WCAG 2.1 compliant)
+- Built with Unistyles 3.0
+
+**Tech Stack:**
+- React Native 0.81+
+- Unistyles 3.0+
+- TypeScript 5.0+
+- Expo SDK 54+
+
+---
+
+## Installation
+
+```bash
+# Install the library and peer dependencies
+npm install @urbint/cl react-native-unistyles
+
+# Or with yarn
+yarn add @urbint/cl react-native-unistyles
+
+# Or link locally during development
+npm link ../path-to-urbint-cl
+```
+
+### Babel Configuration
+
+Add the Unistyles Babel plugin to `babel.config.js`:
+
+```javascript
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: ['babel-preset-expo'],
+    plugins: [
+      ['react-native-unistyles/plugin', { root: 'src' }],
+    ],
+  };
+};
+```
+
+### Setup
+
+Import styles in your app entry point before any components:
+
+```tsx
+// App.tsx
+import '@urbint/cl/styles';
+import { Box, Text, Button } from '@urbint/cl';
+
+export default function App() {
+  return (
+    <Box p="lg">
+      <Text>Hello World</Text>
+      <Button variant="primary">Click Me</Button>
+    </Box>
+  );
+}
+```
+
+---
+
+## Design Tokens
+
+### Colors
+
+#### Brand Colors
+- `brand.navy`: #0D2B3E - Primary dark brand color
+- `brand.blue`: #00A0CC - Primary action color
+
+#### Text Colors
+- `text.primary`: #1F2937 - Primary text
+- `text.secondary`: #6B7280 - Secondary text
+- `text.disabled`: #9CA3AF - Disabled text
+- `text.inverse`: #FFFFFF - Text on dark backgrounds
+
+#### Background Colors
+- `background.primary`: #FFFFFF - Main background
+- `background.secondary`: #F9FAFB - Subtle background
+- `background.tertiary`: #F3F4F6 - Elevated surfaces
+- `background.inverse`: #111827 - Dark background
+
+#### Border Colors
+- `border.disabled`: #E5E7EB - Subtle borders
+- `border.default`: #D1D5DB - Standard borders
+- `border.hover`: #9CA3AF - Hover state
+- `border.active`: #00A0CC - Focus/active state
+
+#### Feedback Colors
+- `feedback.info`: #3B82F6
+- `feedback.success`: #22C55E
+- `feedback.warning`: #F59E0B
+- `feedback.error`: #EF4444
+
+#### Badge Colors
+- `badge.gray`: #6B7280
+- `badge.red`: #DC2626
+- `badge.orange`: #EA580C
+- `badge.yellow`: #CA8A04
+- `badge.green`: #16A34A
+- `badge.blue`: #2563EB
+- `badge.purple`: #7C3AED
+
+### Spacing Tokens
+
+Spacing props accept **token names** (recommended) or raw numbers for backward compatibility.
+
+| Token | Value | Description |
+|-------|-------|-------------|
+| `'none'` | 0px | No spacing |
+| `'xs'` | 4px | Extra small |
+| `'sm'` | 8px | Small |
+| `'md'` | 12px | Medium |
+| `'lg'` | 16px | Large |
+| `'xl'` | 24px | Extra large |
+| `'2xl'` | 32px | 2x extra large |
+| `'3xl'` | 48px | 3x extra large |
+| `'4xl'` | 64px | 4x extra large |
+| `'5xl'` | 72px | 5x extra large |
+
+**Legacy multiplier tokens (also supported):**
+- `'0.5x'`: 2px, `'base'`: 4px, `'2x'`: 8px, `'3x'`: 12px, `'4x'`: 16px, `'6x'`: 24px, `'8x'`: 32px, `'12x'`: 48px, `'18x'`: 72px
+
+### Typography Scale
+- `h1`: 32px, bold (700)
+- `h2`: 24px, semibold (600)
+- `h3`: 20px, semibold (600)
+- `h4`: 18px, semibold (600)
+- `body`: 16px, regular (400)
+- `label`: 14px, regular (400)
+- `caption`: 13px, regular (400)
+- `small`: 12px, regular (400)
+
+### Border Radius
+- `none`: 0
+- `sm`: 2px
+- `md`: 4px
+- `lg`: 8px
+- `xl`: 12px
+- `2xl`: 16px
+- `3xl`: 24px
+- `full`: 9999px
+
+### Elevation (Shadows)
+- `5`: Subtle shadow
+- `10`: Light shadow
+- `20`: Medium shadow
+- `30`: Strong shadow
+- `40`: Heavy shadow
+
+---
+
+## Components Reference
+
+### Layout Components
+
+#### Box
+The most fundamental layout component. A polymorphic container with style props.
+
+```tsx
+import { Box } from '@urbint/cl';
+
+// Using spacing tokens (recommended)
+<Box p="lg" bg="brand.blue" rounded="md" shadow="10">
+  <Text color="white">Content</Text>
+</Box>
+
+// You can also use raw numbers for backward compatibility
+<Box p={16} m="sm" gap="md">
+  <Text>Mixed usage</Text>
+</Box>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| p | SpacingToken \| number | - | Padding all sides ('xs', 'sm', 'md', 'lg', 'xl', '2xl', etc.) |
+| px | SpacingToken \| number | - | Horizontal padding |
+| py | SpacingToken \| number | - | Vertical padding |
+| pt, pb, pl, pr | SpacingToken \| number | - | Individual padding |
+| m | SpacingToken \| number | - | Margin all sides |
+| mx, my | SpacingToken \| number | - | Horizontal/vertical margin |
+| mt, mb, ml, mr | SpacingToken \| number | - | Individual margin |
+| gap | SpacingToken \| number | - | Gap between children |
+| bg | string | - | Background color |
+| rounded | 'none' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| '3xl' \| 'full' | - | Border radius |
+| w | number \| string | - | Width |
+| h | number \| string | - | Height |
+| minW, maxW | number \| string | - | Min/max width |
+| minH, maxH | number \| string | - | Min/max height |
+| flex | number | - | Flex value |
+| flexDirection | 'row' \| 'column' | - | Flex direction |
+| alignItems | FlexAlignType | - | Align items |
+| justifyContent | FlexJustify | - | Justify content |
+| shadow | '5' \| '10' \| '20' \| '30' \| '40' | - | Shadow elevation |
+
+---
+
+#### HStack
+Horizontal stack layout with consistent spacing.
+
+```tsx
+import { HStack } from '@urbint/cl';
+
+// Using spacing tokens (recommended)
+<HStack space="sm" alignItems="center">
+  <Avatar name="John" />
+  <Text>John Doe</Text>
+</HStack>
+
+// Using larger spacing
+<HStack space="xl">
+  <Button>Cancel</Button>
+  <Button variant="primary">Submit</Button>
+</HStack>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| space | SpacingToken \| number | 'none' | Gap between children ('xs', 'sm', 'md', 'lg', 'xl', etc.) |
+| px | SpacingToken \| number | - | Horizontal padding ('xs', 'sm', 'md', 'lg', 'xl', etc.) |
+| py | SpacingToken \| number | - | Vertical padding ('xs', 'sm', 'md', 'lg', 'xl', etc.) |
+| alignItems | FlexAlignType | 'center' | Cross-axis alignment |
+| justifyContent | FlexJustify | 'flex-start' | Main-axis alignment |
+| wrap | boolean | false | Allow wrapping |
+| reversed | boolean | false | Reverse order |
+
+---
+
+#### VStack
+Vertical stack layout with consistent spacing.
+
+```tsx
+import { VStack } from '@urbint/cl';
+
+// Using spacing tokens (recommended)
+<VStack space="lg">
+  <Heading as="h2">Title</Heading>
+  <Text>Description</Text>
+  <Button>Action</Button>
+</VStack>
+
+// Form layout with medium spacing
+<VStack space="md">
+  <Input label="Email" />
+  <Input label="Password" isPassword />
+  <Button>Sign In</Button>
+</VStack>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| space | SpacingToken \| number | 'none' | Gap between children ('xs', 'sm', 'md', 'lg', 'xl', etc.) |
+| px | SpacingToken \| number | - | Horizontal padding ('xs', 'sm', 'md', 'lg', 'xl', etc.) |
+| py | SpacingToken \| number | - | Vertical padding ('xs', 'sm', 'md', 'lg', 'xl', etc.) |
+| alignItems | FlexAlignType | 'stretch' | Cross-axis alignment |
+| justifyContent | FlexJustify | 'flex-start' | Main-axis alignment |
+
+---
+
+#### Center
+Centers children horizontally and vertically.
+
+```tsx
+import { Center } from '@urbint/cl';
+
+<Center h={200}>
+  <Spinner />
+</Center>
+```
+
+---
+
+#### Grid
+Grid layout for arranging items in rows and columns.
+
+```tsx
+import { Grid, GridItem } from '@urbint/cl';
+
+// Using spacing tokens (recommended)
+<Grid columns={3} gap="lg">
+  <GridItem><Card>1</Card></GridItem>
+  <GridItem><Card>2</Card></GridItem>
+  <GridItem><Card>3</Card></GridItem>
+</Grid>
+
+// Different row and column gaps
+<Grid columns={2} rowGap="xl" columnGap="md">
+  <GridItem><Card>A</Card></GridItem>
+  <GridItem><Card>B</Card></GridItem>
+</Grid>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| columns | number | 1 | Number of columns |
+| gap | SpacingToken \| number | 'none' | Gap between items ('xs', 'sm', 'md', 'lg', etc.) |
+| rowGap | SpacingToken \| number | - | Gap between rows |
+| columnGap | SpacingToken \| number | - | Gap between columns |
+
+---
+
+#### Divider
+Visual separator between content.
+
+```tsx
+import { Divider } from '@urbint/cl';
+
+<VStack>
+  <Text>Above</Text>
+  <Divider />
+  <Text>Below</Text>
+</VStack>
+
+<HStack>
+  <Text>Left</Text>
+  <Divider orientation="vertical" />
+  <Text>Right</Text>
+</HStack>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| orientation | 'horizontal' \| 'vertical' | 'horizontal' | Direction |
+| thickness | number | 1 | Line thickness |
+| color | string | border.disabled | Divider color |
+
+---
+
+### Typography Components
+
+#### Text
+Primary text component with variants.
+
+```tsx
+import { Text } from '@urbint/cl';
+
+<Text variant="body">Regular body text</Text>
+<Text variant="caption" color="text.secondary">Secondary caption</Text>
+<Text weight="bold" align="center">Bold centered</Text>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'body' \| 'caption' \| 'label' \| 'small' | 'body' | Text style |
+| weight | 'regular' \| 'medium' \| 'semiBold' \| 'bold' | 'regular' | Font weight |
+| color | string | text.primary | Text color |
+| align | 'left' \| 'center' \| 'right' | 'left' | Alignment |
+| numberOfLines | number | - | Max lines |
+
+---
+
+#### Heading
+Semantic heading component.
+
+```tsx
+import { Heading } from '@urbint/cl';
+
+<Heading as="h1">Page Title</Heading>
+<Heading as="h2">Section Title</Heading>
+<Heading as="h3" color="brand.blue">Colored Heading</Heading>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| as | 'h1' \| 'h2' \| 'h3' \| 'h4' | 'h2' | Heading level |
+| color | string | text.primary | Text color |
+| align | 'left' \| 'center' \| 'right' | 'left' | Alignment |
+
+---
+
+#### Link
+Interactive text link.
+
+```tsx
+import { Link } from '@urbint/cl';
+
+<Link href="/about">About Us</Link>
+<Link href="https://example.com" isExternal>External Link</Link>
+<Link onPress={() => navigate('/home')}>Go Home</Link>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| href | string | - | URL to navigate |
+| onPress | () => void | - | Press handler |
+| isExternal | boolean | false | Open in new tab |
+| color | string | brand.blue | Link color |
+
+---
+
+### Form Components
+
+#### Button
+Primary action component.
+
+```tsx
+import { Button } from '@urbint/cl';
+
+<Button variant="primary" onPress={handleSubmit}>Submit</Button>
+<Button variant="secondary">Cancel</Button>
+<Button variant="ghost">Learn More</Button>
+<Button variant="danger" onPress={handleDelete}>Delete</Button>
+<Button variant="outline">Outline</Button>
+<Button isLoading>Saving...</Button>
+<Button isDisabled>Disabled</Button>
+<Button size="sm">Small</Button>
+<Button size="lg">Large</Button>
+<Button leftIcon={<Icon name="plus" />}>Add Item</Button>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'primary' \| 'secondary' \| 'ghost' \| 'danger' \| 'outline' | 'primary' | Style variant |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Button size |
+| isLoading | boolean | false | Show loading spinner |
+| isDisabled | boolean | false | Disable button |
+| leftIcon | ReactNode | - | Icon before text |
+| rightIcon | ReactNode | - | Icon after text |
+| onPress | () => void | - | Press handler |
+
+---
+
+#### Input
+Text input field.
+
+```tsx
+import { Input } from '@urbint/cl';
+
+<Input 
+  label="Email" 
+  placeholder="Enter your email"
+  value={email}
+  onChange={setEmail}
+/>
+
+<Input 
+  label="Password" 
+  isPassword
+  placeholder="Enter password"
+/>
+
+<Input 
+  label="Username"
+  isInvalid
+  errorMessage="Username is already taken"
+/>
+
+<Input 
+  label="Disabled"
+  isDisabled
+  value="Cannot edit"
+/>
+
+<Input 
+  leftElement={<Icon name="search" />}
+  placeholder="Search..."
+/>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | - | Input label |
+| placeholder | string | - | Placeholder text |
+| value | string | - | Controlled value |
+| onChange | (value: string) => void | - | Change handler |
+| isInvalid | boolean | false | Error state |
+| errorMessage | string | - | Error message |
+| isDisabled | boolean | false | Disable input |
+| isPassword | boolean | false | Password type |
+| leftElement | ReactNode | - | Left icon/element |
+| rightElement | ReactNode | - | Right icon/element |
+| showFocusBorder | boolean | false | Show border highlight on focus |
+| borderColor | string | - | Custom border color |
+| focusBorderColor | string | - | Custom focus border color |
+| backgroundColor | string | - | Custom background color |
+
+---
+
+#### Textarea
+Multi-line text input.
+
+```tsx
+import { Textarea } from '@urbint/cl';
+
+<Textarea 
+  label="Description"
+  placeholder="Enter description..."
+  rows={4}
+  value={description}
+  onChange={setDescription}
+/>
+
+<Textarea 
+  label="Notes"
+  maxLength={500}
+  showCount
+/>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | - | Textarea label |
+| placeholder | string | - | Placeholder |
+| rows | number | 4 | Visible rows |
+| maxLength | number | - | Max characters |
+| showCount | boolean | false | Show character count |
+| value | string | - | Controlled value |
+| onChange | (value: string) => void | - | Change handler |
+
+---
+
+#### Checkbox
+Boolean selection control.
+
+```tsx
+import { Checkbox } from '@urbint/cl';
+
+<Checkbox 
+  label="I accept the terms"
+  isChecked={accepted}
+  onChange={setAccepted}
+/>
+
+<Checkbox label="Remember me" defaultChecked />
+<Checkbox label="Disabled" isDisabled />
+<Checkbox label="Indeterminate" isIndeterminate />
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | - | Checkbox label |
+| isChecked | boolean | - | Controlled state |
+| defaultChecked | boolean | false | Initial state |
+| onChange | (checked: boolean) => void | - | Change handler |
+| isDisabled | boolean | false | Disable checkbox |
+| isIndeterminate | boolean | false | Partial selection |
+
+---
+
+#### Radio & RadioGroup
+Single selection from options.
+
+```tsx
+import { Radio, RadioGroup } from '@urbint/cl';
+
+<RadioGroup 
+  label="Select size"
+  value={size}
+  onChange={setSize}
+>
+  <Radio value="sm" label="Small" />
+  <Radio value="md" label="Medium" />
+  <Radio value="lg" label="Large" />
+</RadioGroup>
+```
+
+**RadioGroup Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | - | Group label |
+| value | string | - | Selected value |
+| onChange | (value: string) => void | - | Change handler |
+
+**Radio Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| value | string | required | Radio value |
+| label | string | - | Radio label |
+| isDisabled | boolean | false | Disable radio |
+
+---
+
+#### Switch
+Toggle switch for binary states.
+
+```tsx
+import { Switch } from '@urbint/cl';
+
+<Switch 
+  label="Enable notifications"
+  isChecked={enabled}
+  onChange={setEnabled}
+/>
+
+<Switch label="Dark mode" colorScheme="primary" />
+<Switch label="Auto-save" colorScheme="success" defaultChecked />
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | - | Switch label |
+| isChecked | boolean | - | Controlled state |
+| defaultChecked | boolean | false | Initial state |
+| onChange | (checked: boolean) => void | - | Change handler |
+| colorScheme | 'primary' \| 'success' \| 'danger' | 'primary' | Active color |
+| isDisabled | boolean | false | Disable switch |
+
+---
+
+#### Select
+Dropdown selection with popover-style dropdown. Supports single select, multi-select, and searchable modes with hover states.
+
+```tsx
+import { Select } from '@urbint/cl';
+
+// Basic usage
+<Select 
+  label="Country"
+  placeholder="Select country"
+  options={[
+    { value: 'us', label: 'United States' },
+    { value: 'uk', label: 'United Kingdom' },
+    { value: 'ca', label: 'Canada' },
+  ]}
+  value={country}
+  onChange={setCountry}
+/>
+
+// Multi-select
+<Select 
+  label="Technologies"
+  placeholder="Select technologies..."
+  isMultiple
+  options={[
+    { value: 'react', label: 'React' },
+    { value: 'vue', label: 'Vue' },
+    { value: 'angular', label: 'Angular' },
+  ]}
+  value={selectedTechs}
+  onChange={setSelectedTechs}
+/>
+
+// Searchable select
+<Select 
+  label="Country"
+  placeholder="Search countries..."
+  isSearchable
+  searchPlaceholder="Type to search..."
+  options={countryOptions}
+/>
+
+// Searchable multi-select
+<Select 
+  label="Tags"
+  placeholder="Search and select tags..."
+  isSearchable
+  isMultiple
+  noResultsText="No tags found"
+  options={tagOptions}
+/>
+
+// With custom filter function
+<Select 
+  label="Technologies"
+  isSearchable
+  isMultiple
+  options={techOptions}
+  filterOption={(option, query) => 
+    option.label.toLowerCase().includes(query.toLowerCase()) ||
+    option.category?.toLowerCase().includes(query.toLowerCase())
+  }
+/>
+
+// With custom option rendering
+<Select 
+  options={[
+    { value: 'us', label: 'United States', flag: '🇺🇸' },
+    { value: 'uk', label: 'United Kingdom', flag: '🇬🇧' },
+  ]}
+  renderOption={({ option, isSelected, isHovered, searchQuery }) => (
+    <HStack space="sm" style={{ flex: 1 }}>
+      <Text>{option.flag}</Text>
+      <Text style={{ color: isSelected ? '#00A0CC' : '#000' }}>
+        {option.label}
+      </Text>
+    </HStack>
+  )}
+  renderSelectedValue={({ option, selectedOptions, placeholder, isMultiple }) => (
+    option ? (
+      <HStack space="sm">
+        <Text>{option.flag}</Text>
+        <Text>{option.label}</Text>
+      </HStack>
+    ) : (
+      <Text style={{ color: '#9CA3AF' }}>{placeholder}</Text>
+    )
+  )}
+/>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | - | Select label |
+| placeholder | string | 'Select an option' | Placeholder text |
+| options | SelectOption[] | required | Options array |
+| value | string \| string[] | - | Selected value(s) |
+| defaultValue | string \| string[] | - | Default selected value(s) |
+| onChange | (value: string \| string[]) => void | - | Change handler |
+| isDisabled | boolean | false | Disable select |
+| isMultiple | boolean | false | Enable multiple selection |
+| isSearchable | boolean | false | Enable search/filter |
+| searchPlaceholder | string | 'Search...' | Search input placeholder |
+| noResultsText | string | 'No results found' | Text when no options match |
+| filterOption | (option, query) => boolean | - | Custom filter function |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Select size |
+| variant | 'outline' \| 'filled' | 'outline' | Select variant |
+| renderOption | (props: RenderOptionProps) => ReactNode | - | Custom option renderer |
+| renderSelectedValue | (props: RenderSelectedValueProps) => ReactNode | - | Custom selected value renderer |
+
+**SelectOption:**
+```ts
+interface SelectOption {
+  label: string;
+  value: string;
+  disabled?: boolean;
+  [key: string]: any; // Custom data for rendering
+}
+```
+
+**RenderOptionProps:**
+```ts
+interface RenderOptionProps {
+  option: SelectOption;
+  isSelected: boolean;
+  isDisabled: boolean;
+  isHovered?: boolean;
+  searchQuery?: string; // Current search query for highlighting
+}
+```
+
+**RenderSelectedValueProps:**
+```ts
+interface RenderSelectedValueProps {
+  option: SelectOption | undefined; // First selected option
+  selectedOptions: SelectOption[];  // All selected options (for multi-select)
+  placeholder: string;
+  isMultiple: boolean;
+}
+```
+
+---
+
+#### DatePicker
+Date and time picker with multiple modes. Supports date only, time only, or date and time selection (side by side). Uses a `Modal`-based dropdown on iOS/Android. On web, consider using a native HTML `<input type="date|time|datetime-local">` for better browser integration (see "Cross-Platform Consumption" below).
+
+```tsx
+import { DatePicker } from '@urbint/cl';
+
+// Date only
+<DatePicker 
+  label="Date of Birth"
+  mode="date"
+  placeholder="Select date"
+  value={date}
+  onChange={setDate}
+/>
+
+// Time only
+<DatePicker 
+  label="Appointment Time"
+  mode="time"
+  placeholder="Select time"
+  use24HourFormat={false}
+/>
+
+// Date and time (side by side layout)
+<DatePicker 
+  label="Event Start"
+  mode="datetime"
+  placeholder="Select date & time"
+  value={datetime}
+  onChange={setDatetime}
+  showNowButton={true}
+/>
+
+// With min/max constraints
+<DatePicker 
+  label="Future Date"
+  mode="date"
+  minDate={new Date()}
+  maxDate={new Date(2026, 11, 31)}
+/>
+
+// With custom format
+<DatePicker 
+  label="European Format"
+  mode="date"
+  formatDate={(date) => {
+    const d = date.getDate().toString().padStart(2, '0');
+    const m = (date.getMonth() + 1).toString().padStart(2, '0');
+    return `${d}/${m}/${date.getFullYear()}`;
+  }}
+/>
+
+// 24-hour time format
+<DatePicker 
+  label="Time (24h)"
+  mode="time"
+  use24HourFormat={true}
+/>
+
+// Monday as first day of week
+<DatePicker 
+  label="Week starts Monday"
+  mode="date"
+  firstDayOfWeek={1}
+/>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| mode | 'date' \| 'time' \| 'datetime' | 'date' | Picker mode |
+| value | Date | - | Controlled value |
+| defaultValue | Date | - | Default value |
+| onChange | (date: Date) => void | - | Change handler |
+| placeholder | string | Auto-generated | Placeholder text |
+| label | string | - | Label text |
+| helperText | string | - | Helper text |
+| errorMessage | string | - | Error message |
+| isInvalid | boolean | false | Error state |
+| isDisabled | boolean | false | Disable picker |
+| isRequired | boolean | false | Required field |
+| minDate | Date | - | Minimum selectable date |
+| maxDate | Date | - | Maximum selectable date |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Picker size |
+| variant | 'outline' \| 'filled' | 'outline' | Visual variant |
+| formatDate | (date: Date, mode: DatePickerMode) => string | Default formatter | Custom format function |
+| use24HourFormat | boolean | false | Use 24-hour time format |
+| firstDayOfWeek | 0 \| 1 | 0 | First day (0=Sunday, 1=Monday) |
+| showNowButton | boolean | true | Show "Now" button in time/datetime modes |
+
+**Mode Details:**
+- `date`: Shows calendar only, closes on date selection
+- `time`: Shows hour/minute/AM-PM columns with "Now" and "OK" buttons
+- `datetime`: Shows calendar and time picker side by side with "Now" and "OK" buttons
+
+**Controlled vs Uncontrolled:**
+- **Controlled:** Pass `value` (a `Date`) and `onChange`. The component reflects the `value` you give it.
+- **Uncontrolled:** Omit `value` (or pass `undefined`). Optionally pass `defaultValue` for an initial selection. Internal state manages the selected date.
+- **Important:** Do NOT switch between controlled (`value={someDate}`) and uncontrolled (`value={undefined}`) across re-renders. Pick one pattern. If you need to clear a controlled value, manage a separate `hasValue` flag rather than toggling `value` between a `Date` and `undefined`.
+
+**Cross-Platform Consumption (iOS / Android / Web):**
+
+On **iOS and Android** the DatePicker component works directly and renders a native `Modal` with the calendar/time picker. On **web** the component also works, but you may prefer native HTML inputs for better browser integration. A common pattern is to branch by platform:
+
+```tsx
+import { Platform, View } from 'react-native';
+import { DatePicker, HStack, Box, Pressable } from '@urbint/cl';
+import { X } from 'lucide-react-native';
+
+function DateTimeField({ value, onChange, onClear, label, mode }) {
+  // Web: use native HTML inputs for best browser experience
+  if (Platform.OS === 'web') {
+    const inputType = mode === 'date' ? 'date' 
+      : mode === 'time' ? 'time' 
+      : 'datetime-local';
+
+    return (
+      <Box>
+        <Text variant="caption" weight="semiBold">{label}</Text>
+        <input
+          type={inputType}
+          value={value ?? ''}
+          onChange={(e) => onChange(new Date(e.target.value))}
+          style={{ padding: 12, borderRadius: 4, border: '1px solid #ccc' }}
+        />
+      </Box>
+    );
+  }
+
+  // iOS / Android: use the DatePicker component
+  return (
+    <Box>
+      <HStack alignItems="flex-end" space="sm">
+        <View style={{ flex: 1 }}>
+          <DatePicker
+            label={label}
+            mode={mode}
+            value={value}
+            onChange={onChange}
+          />
+        </View>
+        {value && (
+          <Pressable onPress={onClear} style={{ padding: 12 }}>
+            <X size={18} color="#6B7280" />
+          </Pressable>
+        )}
+      </HStack>
+    </Box>
+  );
+}
+```
+
+**Full Real-World Example (form field with clear button):**
+
+```tsx
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { DatePicker, HStack, Box, Pressable, Text } from '@urbint/cl';
+import { X } from 'lucide-react-native';
+
+// Helper formatters
+const formatDate = (date: Date) => {
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${m}/${d}/${date.getFullYear()}`;
+};
+
+const formatTime = (date: Date) => {
+  let h = date.getHours();
+  const min = String(date.getMinutes()).padStart(2, '0');
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  return `${String(h).padStart(2, '0')}:${min} ${ampm}`;
+};
+
+const formatDateTime = (date: Date) => `${formatDate(date)} ${formatTime(date)}`;
+
+function MyDateTimeField() {
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+
+  const handleChange = (date: Date) => {
+    setSelectedDate(date);
+  };
+
+  const handleClear = () => {
+    setSelectedDate(undefined);
+  };
+
+  const formatForPicker = (date: Date, mode: 'date' | 'time' | 'datetime') => {
+    if (mode === 'date') return formatDate(date);
+    if (mode === 'time') return formatTime(date);
+    return formatDateTime(date);
+  };
+
+  return (
+    <Box>
+      <HStack alignItems="flex-end" space="sm">
+        <View style={{ flex: 1 }}>
+          <DatePicker
+            label="Event Date & Time"
+            mode="datetime"
+            value={selectedDate}
+            onChange={handleChange}
+            placeholder="MM/DD/YYYY HH:mm"
+            isRequired
+            formatDate={formatForPicker}
+            showNowButton
+          />
+        </View>
+        {selectedDate && (
+          <Pressable onPress={handleClear} style={{ padding: 12, minHeight: 48, justifyContent: 'center' }}>
+            <X size={18} color="#6B7280" />
+          </Pressable>
+        )}
+      </HStack>
+    </Box>
+  );
+}
+```
+
+**Key Consumption Notes:**
+1. The `value` prop expects a `Date` object or `undefined`. Do not pass strings.
+2. The `onChange` callback receives a `Date` object.
+3. The `formatDate` prop signature is `(date: Date, mode: DatePickerMode) => string` — it controls how the selected value is displayed in the trigger.
+4. For **controlled** usage, always pass `value` as a `Date` or keep it consistently `undefined`; avoid toggling between the two.
+5. Wrap the DatePicker in a `View` with `flex: 1` when placing it inside an `HStack` so it takes available space.
+6. The dropdown uses a `Modal` internally — it renders at the root level, so parent `overflow: 'hidden'` will not clip it.
+
+---
+
+#### Combobox
+Autocomplete input with a dropdown list of suggestions. Supports async loading, custom item rendering, controlled/uncontrolled input, and cross-platform (iOS, Android, Web). Uses a Modal-based dropdown (same pattern as Select) to avoid overflow/zIndex issues.
+
+```tsx
+import { Combobox, ComboboxItem } from '@urbint/cl';
+
+// Basic usage with local filtering
+const [value, setValue] = useState('');
+const [filtered, setFiltered] = useState(items);
+
+const handleInputChange = (text: string) => {
+  setValue(text);
+  setFiltered(
+    items.filter((item) =>
+      item.label.toLowerCase().includes(text.toLowerCase())
+    )
+  );
+};
+
+<Combobox
+  label="Framework"
+  placeholder="Search frameworks..."
+  inputValue={value}
+  onInputChange={handleInputChange}
+  items={filtered}
+  onSelect={(item) => setValue(item.label)}
+/>
+
+// Async loading with search icon
+const [query, setQuery] = useState('');
+const [results, setResults] = useState<ComboboxItem[]>([]);
+const [loading, setLoading] = useState(false);
+
+const handleSearch = (text: string) => {
+  setQuery(text);
+  if (text.length < 2) { setResults([]); return; }
+  setLoading(true);
+  fetchResults(text).then((data) => {
+    setResults(data);
+    setLoading(false);
+  });
+};
+
+<Combobox
+  label="Location"
+  placeholder="Search a city..."
+  inputValue={query}
+  onInputChange={handleSearch}
+  items={results}
+  isLoading={loading}
+  onSelect={(item) => setQuery(item.label)}
+  minChars={2}
+  leftElement={<Icon name="search" />}
+/>
+
+// With error state
+<Combobox
+  label="Location"
+  placeholder="Search..."
+  items={[]}
+  isInvalid
+  errorMessage="Location is required"
+/>
+
+// Disabled
+<Combobox
+  label="Location"
+  placeholder="Search..."
+  items={[]}
+  isDisabled
+/>
+
+// Custom item rendering
+<Combobox
+  items={users}
+  renderItem={({ item, isHighlighted, searchQuery }) => (
+    <HStack space="sm">
+      <Avatar name={item.label} size="xs" />
+      <VStack>
+        <Text weight="semiBold">{item.label}</Text>
+        <Text variant="caption">{item.description}</Text>
+      </VStack>
+    </HStack>
+  )}
+/>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| items | ComboboxItem[] | required | Available items to display in the dropdown |
+| inputValue | string | - | Controlled input value |
+| onInputChange | (text: string) => void | - | Called when input text changes (for search/filtering) |
+| onSelect | (item: ComboboxItem) => void | - | Called when an item is selected |
+| placeholder | string | 'Search...' | Placeholder text |
+| label | string | - | Label text above the input |
+| helperText | string | - | Helper text below the input |
+| errorMessage | string | - | Error message (replaces helperText) |
+| isInvalid | boolean | false | Error state |
+| isDisabled | boolean | false | Disable input |
+| isReadOnly | boolean | false | Read-only input |
+| isRequired | boolean | false | Required field |
+| isLoading | boolean | false | Show loading spinner in dropdown |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Input size |
+| variant | 'outline' \| 'filled' | 'outline' | Input variant |
+| emptyText | string | 'No results found' | Text shown when no items match |
+| loadingText | string | 'Loading...' | Text shown while loading |
+| leftElement | ReactNode | - | Left element (e.g. search icon) |
+| rightElement | ReactNode | - | Right element (shown left of chevron) |
+| renderItem | (props: RenderComboboxItemProps) => ReactNode | - | Custom render for dropdown items |
+| closeOnSelect | boolean | true | Close dropdown on item select |
+| maxDropdownHeight | number | 260 | Max height of the dropdown list |
+| minChars | number | 0 | Minimum characters before showing dropdown |
+| textInputProps | TextInputProps | - | Additional TextInput props |
+
+**ComboboxItem:**
+```ts
+interface ComboboxItem {
+  value: string;       // Unique identifier
+  label: string;       // Display label
+  description?: string; // Optional secondary text
+  disabled?: boolean;  // Whether item is disabled
+  [key: string]: any;  // Additional custom data
+}
+```
+
+**RenderComboboxItemProps:**
+```ts
+interface RenderComboboxItemProps {
+  item: ComboboxItem;
+  isHighlighted: boolean;
+  isDisabled: boolean;
+  searchQuery: string;
+}
+```
+
+**Controlled vs Uncontrolled:**
+- **Controlled:** Pass `inputValue` and `onInputChange`. You manage the filtering and pass filtered `items`.
+- **Uncontrolled:** Omit `inputValue`. The component manages internal input state. You still need to pass `items` (the component does not filter for you).
+
+**Key Differences from Select:**
+- Combobox has a text input for typing/searching; Select has a trigger button.
+- Combobox is ideal for autocomplete, search-as-you-type, and async data fetching scenarios.
+- Select is better for static, predefined option lists.
+
+---
+
+#### Slider
+Range value selector.
+
+```tsx
+import { Slider } from '@urbint/cl';
+
+<Slider 
+  label="Volume"
+  value={volume}
+  onChange={setVolume}
+  min={0}
+  max={100}
+  showValue
+/>
+
+<Slider 
+  label="Price range"
+  min={0}
+  max={1000}
+  step={10}
+/>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | - | Slider label |
+| value | number | - | Current value |
+| onChange | (value: number) => void | - | Change handler |
+| min | number | 0 | Minimum value |
+| max | number | 100 | Maximum value |
+| step | number | 1 | Step increment |
+| showValue | boolean | false | Show current value |
+
+---
+
+#### FormControl
+Wrapper for form elements with label and error handling.
+
+```tsx
+import { FormControl, Input } from '@urbint/cl';
+
+<FormControl 
+  label="Email"
+  helperText="We'll never share your email"
+  isRequired
+>
+  <Input placeholder="Enter email" />
+</FormControl>
+
+<FormControl 
+  label="Password"
+  isInvalid
+  errorMessage="Password must be at least 8 characters"
+>
+  <Input isPassword />
+</FormControl>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | - | Form label |
+| helperText | string | - | Helper text |
+| errorMessage | string | - | Error message |
+| isRequired | boolean | false | Show required indicator |
+| isInvalid | boolean | false | Error state |
+
+---
+
+### Feedback Components
+
+#### Alert
+Status messages.
+
+```tsx
+import { Alert } from '@urbint/cl';
+
+<Alert status="info" title="Update available" description="A new version is ready." />
+<Alert status="success" title="Saved!" />
+<Alert status="warning" title="Warning" description="Please review before continuing." />
+<Alert status="error" title="Error" description="Something went wrong." isClosable onClose={handleClose} />
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| status | 'info' \| 'success' \| 'warning' \| 'error' | 'info' | Alert type |
+| title | string | required | Alert title |
+| description | string | - | Alert description |
+| isClosable | boolean | false | Show close button |
+| onClose | () => void | - | Close handler |
+
+---
+
+#### Toast
+Non-blocking notifications.
+
+```tsx
+import { useToast, ToastProvider } from '@urbint/cl';
+
+// Wrap app with ToastProvider
+<ToastProvider>
+  <App />
+</ToastProvider>
+
+// Use in components
+function MyComponent() {
+  const toast = useToast();
+  
+  const handleSave = () => {
+    toast.show({
+      title: 'Saved successfully',
+      status: 'success',
+      duration: 3000,
+    });
+  };
+  
+  const handleError = () => {
+    toast.show({
+      title: 'Error',
+      description: 'Failed to save changes',
+      status: 'error',
+    });
+  };
+}
+```
+
+**toast.show() Options:**
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| title | string | required | Toast title |
+| description | string | - | Toast description |
+| status | 'info' \| 'success' \| 'warning' \| 'error' | 'info' | Toast type |
+| duration | number | 5000 | Auto-dismiss (ms) |
+| position | 'top' \| 'bottom' | 'top' | Screen position |
+
+---
+
+#### Progress
+Progress indicator.
+
+```tsx
+import { Progress } from '@urbint/cl';
+
+// Linear progress
+<Progress value={75} />
+<Progress value={50} size="lg" colorScheme="success" />
+<Progress value={25} showLabel />
+<Progress isIndeterminate />
+
+// Circular progress
+<Progress variant="circular" value={75} />
+<Progress variant="circular" value={50} size="lg" showLabel />
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| value | number | - | Progress 0-100 |
+| variant | 'linear' \| 'circular' | 'linear' | Progress style |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Progress size |
+| colorScheme | 'primary' \| 'success' \| 'warning' | 'primary' | Color |
+| showLabel | boolean | false | Show percentage |
+| isIndeterminate | boolean | false | Indeterminate mode |
+
+---
+
+#### Spinner
+Loading indicator.
+
+```tsx
+import { Spinner } from '@urbint/cl';
+
+<Spinner />
+<Spinner size="lg" />
+<Spinner size="sm" color="brand.blue" />
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| size | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Spinner size |
+| color | string | brand.blue | Spinner color |
+| label | string | 'Loading' | Accessibility label |
+
+---
+
+#### Skeleton
+Loading placeholder.
+
+```tsx
+import { Skeleton, SkeletonText, SkeletonCircle } from '@urbint/cl';
+
+// Basic skeleton
+<Skeleton height={20} width="60%" />
+<Skeleton height={100} />
+
+// Text skeleton
+<SkeletonText noOfLines={3} />
+
+// Circle skeleton (for avatars)
+<SkeletonCircle size={48} />
+
+// Combined loading state
+<HStack space={12}>
+  <SkeletonCircle size={48} />
+  <VStack space={8} flex={1}>
+    <Skeleton height={16} width="70%" />
+    <Skeleton height={14} width="40%" />
+  </VStack>
+</HStack>
+```
+
+**Skeleton Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| width | number \| string | '100%' | Skeleton width |
+| height | number | 16 | Skeleton height |
+| animation | 'pulse' \| 'wave' \| 'none' | 'pulse' | Animation type |
+
+---
+
+### Data Display Components
+
+#### Avatar
+User profile image.
+
+```tsx
+import { Avatar, AvatarGroup } from '@urbint/cl';
+
+<Avatar name="John Doe" />
+<Avatar src="https://example.com/avatar.jpg" name="Jane" />
+<Avatar name="Bob Smith" size="lg" showBadge badgeColor="success" />
+
+// Avatar group
+<AvatarGroup max={3}>
+  <Avatar name="John" />
+  <Avatar name="Jane" />
+  <Avatar name="Bob" />
+  <Avatar name="Alice" />
+</AvatarGroup>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| src | string | - | Image URL |
+| name | string | - | Name for initials |
+| size | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Avatar size |
+| showBadge | boolean | false | Show status badge |
+| badgeColor | string | success | Badge color |
+
+---
+
+#### Badge
+Status indicator labels.
+
+```tsx
+import { Badge } from '@urbint/cl';
+
+<Badge variant="gray">Default</Badge>
+<Badge variant="red">Critical</Badge>
+<Badge variant="orange">Warning</Badge>
+<Badge variant="yellow">Pending</Badge>
+<Badge variant="green">Active</Badge>
+<Badge variant="blue">Info</Badge>
+<Badge variant="purple">New</Badge>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'gray' \| 'red' \| 'orange' \| 'yellow' \| 'green' \| 'blue' \| 'purple' | 'gray' | Badge color |
+| size | 'sm' \| 'md' | 'md' | Badge size |
+
+---
+
+#### Card
+Content container.
+
+```tsx
+import { Card, CardHeader, CardBody, CardFooter } from '@urbint/cl';
+
+<Card variant="elevated">
+  <CardHeader>
+    <Heading as="h3">Card Title</Heading>
+  </CardHeader>
+  <CardBody>
+    <Text>Card content goes here.</Text>
+  </CardBody>
+  <CardFooter>
+    <Button variant="ghost">Cancel</Button>
+    <Button>Submit</Button>
+  </CardFooter>
+</Card>
+
+<Card variant="outline" padding="lg">
+  <Text>Simple outline card</Text>
+</Card>
+
+// Card with custom elevation
+<Card shadow="40">
+  <Text>High elevation card</Text>
+</Card>
+
+<Card variant="filled" shadow="10">
+  <Text>Filled card with subtle shadow</Text>
+</Card>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'elevated' \| 'outline' \| 'filled' | 'elevated' | Card style |
+| padding | 'none' \| 'sm' \| 'md' \| 'lg' | 'md' | Internal padding |
+| shadow | '5' \| '10' \| '20' \| '30' \| '40' | '20' (for elevated) | Shadow elevation level |
+| isPressable | boolean | false | Make card tappable |
+| onPress | () => void | - | Press handler (requires isPressable) |
+
+---
+
+#### Table
+Data table.
+
+```tsx
+import { Table, TableHead, TableBody, TableRow, TableCell } from '@urbint/cl';
+
+<Table>
+  <TableHead>
+    <TableRow>
+      <TableCell isHeader>Name</TableCell>
+      <TableCell isHeader>Status</TableCell>
+      <TableCell isHeader>Role</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell>John Doe</TableCell>
+      <TableCell><Badge variant="green">Active</Badge></TableCell>
+      <TableCell>Admin</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+---
+
+#### Icon
+SVG icons.
+
+```tsx
+import { Icon } from '@urbint/cl';
+
+<Icon name="check" />
+<Icon name="close" size="lg" color="error" />
+<Icon name="search" size="sm" />
+<Icon name="user" />
+<Icon name="settings" />
+<Icon name="bell" />
+<Icon name="heart" color="red" />
+<Icon name="star" color="yellow" />
+```
+
+**Available Icons:** check, close, search, user, settings, bell, heart, star, plus, minus, edit, delete, chevron-down, chevron-up, chevron-left, chevron-right, arrow-left, arrow-right, info, warning, error, success
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| name | IconName | required | Icon name |
+| size | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Icon size |
+| color | string | text.primary | Icon color |
+
+---
+
+### Overlay Components
+
+#### Modal
+Dialog overlay.
+
+```tsx
+import { Modal, ModalHeader, ModalBody, ModalFooter, useDisclosure } from '@urbint/cl';
+
+function MyComponent() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  
+  return (
+    <>
+      <Button onPress={onOpen}>Open Modal</Button>
+      
+      <Modal isOpen={isOpen} onClose={onClose} size="md">
+        <ModalHeader>Modal Title</ModalHeader>
+        <ModalBody>
+          <Text>Modal content goes here.</Text>
+        </ModalBody>
+        <ModalFooter>
+          <Button variant="ghost" onPress={onClose}>Cancel</Button>
+          <Button onPress={handleConfirm}>Confirm</Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  );
+}
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| isOpen | boolean | required | Open state |
+| onClose | () => void | required | Close handler |
+| size | 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full' | 'md' | Modal size |
+| closeOnOverlayClick | boolean | true | Close on backdrop |
+
+---
+
+#### Drawer
+Slide-out panel.
+
+```tsx
+import { Drawer, DrawerHeader, DrawerBody, useDisclosure } from '@urbint/cl';
+
+function MyComponent() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  
+  return (
+    <>
+      <Button onPress={onOpen}>Open Menu</Button>
+      
+      <Drawer isOpen={isOpen} onClose={onClose} title="Menu" placement="right">
+        <DrawerBody>
+          <VStack space={16}>
+            <Link>Profile</Link>
+            <Link>Settings</Link>
+            <Link>Logout</Link>
+          </VStack>
+        </DrawerBody>
+      </Drawer>
+    </>
+  );
+}
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| isOpen | boolean | required | Open state |
+| onClose | () => void | required | Close handler |
+| title | string | - | Drawer title displayed in header |
+| placement | 'left' \| 'right' \| 'top' \| 'bottom' | 'right' | Position |
+| size | 'sm' \| 'md' \| 'lg' \| 'full' | 'md' | Drawer size |
+
+---
+
+#### AlertDialog
+Confirmation dialog.
+
+```tsx
+import { AlertDialog, useDisclosure } from '@urbint/cl';
+
+function DeleteButton() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  
+  return (
+    <>
+      <Button variant="danger" onPress={onOpen}>Delete</Button>
+      
+      <AlertDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        onConfirm={handleDelete}
+        title="Delete Item?"
+        description="This action cannot be undone."
+        confirmLabel="Delete"
+        confirmVariant="danger"
+      />
+    </>
+  );
+}
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| isOpen | boolean | required | Open state |
+| onClose | () => void | required | Close handler |
+| onConfirm | () => void | required | Confirm handler |
+| title | string | required | Dialog title |
+| description | string | - | Dialog description |
+| confirmLabel | string | 'Confirm' | Confirm button text |
+| confirmVariant | ButtonVariant | 'primary' | Confirm button style |
+
+---
+
+#### Popover
+Floating content.
+
+```tsx
+import { Popover, PopoverTrigger, PopoverContent } from '@urbint/cl';
+
+<Popover placement="bottom">
+  <PopoverTrigger>
+    <Button>Open Popover</Button>
+  </PopoverTrigger>
+  <PopoverContent>
+    <Text>Popover content here</Text>
+  </PopoverContent>
+</Popover>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| placement | 'top' \| 'bottom' \| 'left' \| 'right' | 'bottom' | Position |
+| isOpen | boolean | - | Controlled state |
+| onClose | () => void | - | Close handler |
+
+---
+
+#### Tooltip
+Hover hints.
+
+```tsx
+import { Tooltip } from '@urbint/cl';
+
+<Tooltip label="This is a helpful tip">
+  <Button>Hover me</Button>
+</Tooltip>
+
+<Tooltip label="Delete item" placement="left">
+  <Icon name="delete" />
+</Tooltip>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | required | Tooltip text |
+| placement | 'top' \| 'bottom' \| 'left' \| 'right' | 'top' | Position |
+| hasArrow | boolean | true | Show arrow |
+
+---
+
+#### Menu
+Dropdown menu.
+
+```tsx
+import { Menu, MenuTrigger, MenuContent, MenuItem } from '@urbint/cl';
+
+<Menu>
+  <MenuTrigger>
+    <Button rightIcon={<Icon name="chevron-down" />}>Options</Button>
+  </MenuTrigger>
+  <MenuContent>
+    <MenuItem onPress={handleEdit}>Edit</MenuItem>
+    <MenuItem onPress={handleDuplicate}>Duplicate</MenuItem>
+    <MenuItem onPress={handleDelete} isDestructive>Delete</MenuItem>
+  </MenuContent>
+</Menu>
+```
+
+---
+
+#### ActionSheet
+Bottom sheet (mobile).
+
+```tsx
+import { ActionSheet, useDisclosure } from '@urbint/cl';
+
+function MyComponent() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  
+  return (
+    <>
+      <Button onPress={onOpen}>Show Actions</Button>
+      
+      <ActionSheet
+        isOpen={isOpen}
+        onClose={onClose}
+        actions={[
+          { label: 'Edit', onPress: handleEdit },
+          { label: 'Share', onPress: handleShare },
+          { label: 'Delete', onPress: handleDelete, isDestructive: true },
+        ]}
+      />
+    </>
+  );
+}
+```
+
+---
+
+### Action Components
+
+#### Pressable
+Base pressable with feedback.
+
+```tsx
+import { Pressable } from '@urbint/cl';
+
+<Pressable onPress={handlePress} onLongPress={handleLongPress}>
+  <Card>
+    <Text>Tap me</Text>
+  </Card>
+</Pressable>
+```
+
+---
+
+#### Fab
+Floating action button.
+
+```tsx
+import { Fab } from '@urbint/cl';
+
+<Fab 
+  icon={<Icon name="plus" color="white" />}
+  onPress={handleAdd}
+  position="bottom-right"
+/>
+
+<Fab 
+  icon={<Icon name="plus" />}
+  label="Add Item"
+  position="bottom-right"
+/>
+```
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| icon | ReactNode | required | FAB icon |
+| label | string | - | Extended FAB text |
+| position | 'bottom-right' \| 'bottom-left' \| 'top-right' \| 'top-left' | 'bottom-right' | Screen position |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | FAB size |
+| onPress | () => void | - | Press handler |
+
+---
+
+#### Accordion
+Expandable sections with configurable icon position.
+
+```tsx
+import { Accordion, AccordionItem, AccordionButton, AccordionPanel } from '@urbint/cl';
+
+// Basic usage (icon on right by default)
+<Accordion defaultIndex={['faq-1']} allowMultiple>
+  <AccordionItem value="faq-1">
+    <AccordionButton>What is Urbint CL?</AccordionButton>
+    <AccordionPanel>
+      <Text>Enterprise-ready React Native component library.</Text>
+    </AccordionPanel>
+  </AccordionItem>
+  <AccordionItem value="faq-2">
+    <AccordionButton>How do I install it?</AccordionButton>
+    <AccordionPanel>
+      <Text>npm install @urbint/cl</Text>
+    </AccordionPanel>
+  </AccordionItem>
+</Accordion>
+
+// Icon on left for all items
+<Accordion iconPosition="left" defaultIndex={['item-1']}>
+  <AccordionItem value="item-1">
+    <AccordionButton>Site Conditions</AccordionButton>
+    <AccordionPanel>
+      <Text>Site conditions content...</Text>
+    </AccordionPanel>
+  </AccordionItem>
+  <AccordionItem value="item-2">
+    <AccordionButton>Activities</AccordionButton>
+    <AccordionPanel>
+      <Text>Activities content...</Text>
+    </AccordionPanel>
+  </AccordionItem>
+</Accordion>
+
+// Per-item icon position override
+<Accordion iconPosition="right">
+  <AccordionItem value="item-1">
+    <AccordionButton iconPosition="left">Override to left</AccordionButton>
+    <AccordionPanel>
+      <Text>This item has icon on left.</Text>
+    </AccordionPanel>
+  </AccordionItem>
+  <AccordionItem value="item-2">
+    <AccordionButton>Uses default (right)</AccordionButton>
+    <AccordionPanel>
+      <Text>This item uses default position.</Text>
+    </AccordionPanel>
+  </AccordionItem>
+</Accordion>
+```
+
+**Accordion Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| defaultIndex | string[] | [] | Initially expanded |
+| allowMultiple | boolean | false | Multiple open sections |
+| allowToggle | boolean | true | Allow toggling items |
+| iconPosition | 'left' \| 'right' | 'right' | Position of expand/collapse icon for all items |
+| onChange | (index: string[]) => void | - | Change handler |
+
+**AccordionButton Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| iconPosition | 'left' \| 'right' | - | Override icon position for this button (inherits from Accordion if not set) |
+
+---
+
+### Utility Components
+
+#### Portal
+Render outside parent hierarchy.
+
+```tsx
+import { Portal } from '@urbint/cl';
+
+<Portal>
+  <Modal>...</Modal>
+</Portal>
+```
+
+---
+
+## Hooks
+
+### useDisclosure
+Manage open/close state.
+
+```tsx
+import { useDisclosure } from '@urbint/cl';
+
+const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
+const { isOpen, onOpen, onClose } = useDisclosure({ defaultOpen: true });
+```
+
+### useControllableState
+Controlled/uncontrolled state management.
+
+```tsx
+import { useControllableState } from '@urbint/cl';
+
+const [value, setValue] = useControllableState({
+  value: controlledValue,
+  defaultValue: 'default',
+  onChange: onValueChange,
+});
+```
+
+### useUnistyles
+Access theme and breakpoints.
+
+```tsx
+import { useUnistyles } from 'react-native-unistyles';
+
+const { theme, breakpoint } = useUnistyles();
+
+<Box bg={theme.colors.background.primary}>
+  <Text style={{ fontSize: breakpoint === 'xs' ? 14 : 16 }}>
+    Responsive text
+  </Text>
+</Box>
+```
+
+---
+
+## Theming
+
+### Creating a Custom Theme
+
+```tsx
+// src/styles/customTheme.ts
+import { lightTheme, darkTheme } from '@urbint/cl';
+
+export const myLightTheme = {
+  ...lightTheme,
+  colors: {
+    ...lightTheme.colors,
+    brand: {
+      primary: '#YOUR_PRIMARY_COLOR',
+      secondary: '#YOUR_SECONDARY_COLOR',
+    },
+  },
+};
+
+export const myDarkTheme = {
+  ...darkTheme,
+  colors: {
+    ...darkTheme.colors,
+    brand: {
+      primary: '#YOUR_DARK_PRIMARY',
+      secondary: '#YOUR_DARK_SECONDARY',
+    },
+  },
+};
+```
+
+### Configuring Themes
+
+```tsx
+// src/styles/unistyles.ts
+import { StyleSheet } from 'react-native-unistyles';
+import { myLightTheme, myDarkTheme } from './customTheme';
+
+StyleSheet.configure({
+  themes: {
+    light: myLightTheme,
+    dark: myDarkTheme,
+  },
+  settings: {
+    adaptiveThemes: true, // Auto-switch based on OS preference
+  },
+});
+```
+
+### Switching Themes
+
+```tsx
+import { UnistylesRuntime } from 'react-native-unistyles';
+
+// Get current theme
+const currentTheme = UnistylesRuntime.themeName;
+
+// Set theme
+UnistylesRuntime.setTheme('dark');
+
+// Toggle theme
+const toggleTheme = () => {
+  UnistylesRuntime.setTheme(
+    UnistylesRuntime.themeName === 'light' ? 'dark' : 'light'
+  );
+};
+```
+
+---
+
+## Best Practices
+
+### Component Composition
+```tsx
+// ✅ Good - compose components with spacing tokens
+<Card>
+  <CardHeader>
+    <HStack space="md">
+      <Avatar name="John" />
+      <VStack>
+        <Text weight="semiBold">John Doe</Text>
+        <Text variant="caption">Software Engineer</Text>
+      </VStack>
+    </HStack>
+  </CardHeader>
+  <CardBody>
+    <Text>Content here</Text>
+  </CardBody>
+</Card>
+```
+
+### Form Handling
+```tsx
+// ✅ Good - use FormControl with spacing tokens
+<VStack space="lg">
+  <FormControl label="Name" isRequired>
+    <Input value={name} onChange={setName} />
+  </FormControl>
+  
+  <FormControl label="Email" isInvalid={!!emailError} errorMessage={emailError}>
+    <Input value={email} onChange={setEmail} />
+  </FormControl>
+  
+  <Button onPress={handleSubmit}>Submit</Button>
+</VStack>
+```
+
+### Loading States
+```tsx
+// ✅ Good - show loading placeholders with spacing tokens
+{isLoading ? (
+  <HStack space="md">
+    <SkeletonCircle size={48} />
+    <VStack space="sm" flex={1}>
+      <Skeleton height={16} width="60%" />
+      <Skeleton height={14} width="40%" />
+    </VStack>
+  </HStack>
+) : (
+  <HStack space="md">
+    <Avatar src={user.avatar} name={user.name} />
+    <VStack>
+      <Text weight="semiBold">{user.name}</Text>
+      <Text variant="caption">{user.role}</Text>
+    </VStack>
+  </HStack>
+)}
+```
+
+### Accessibility
+```tsx
+// ✅ Good - provide accessible labels
+<Button accessibilityLabel="Submit form">Submit</Button>
+<Icon name="delete" accessibilityLabel="Delete item" />
+<Input label="Email" accessibilityHint="Enter your email address" />
+```
+
+---
+
+## TypeScript Support
+
+All components are fully typed. Import types as needed:
+
+```tsx
+import type { 
+  ButtonProps,
+  InputProps,
+  CardProps,
+  ModalProps,
+  ToastOptions,
+  SpacingToken,  // Type for spacing tokens
+  ComboboxProps,
+  ComboboxItem,
+  RenderComboboxItemProps,
+} from '@urbint/cl';
+```
+
+### SpacingToken Type
+The `SpacingToken` type represents all valid spacing token names:
+
+```tsx
+type SpacingToken = 
+  | 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl'
+  | '0.5x' | 'base' | '2x' | '3x' | '4x' | '6x' | '8x' | '12x' | '18x';
+```
+
+Components that accept spacing (Box, HStack, VStack, Grid) use `SpacingToken | number` so you can use either tokens or raw pixel values.
+
+---
+
+## Troubleshooting
+
+### Metro bundler issues
+```bash
+# Clear cache and restart
+npx expo start --clear
+```
+
+### Unistyles not working
+1. Ensure Babel plugin is configured
+2. Restart Metro bundler
+3. Check import order (styles before components)
+
+### Theme not applying
+```tsx
+// Make sure to import styles first
+import '@urbint/cl/styles';
+// Then import components
+import { Button } from '@urbint/cl';
+```
+
+---
+
+## MCP Server Integration
+
+The Urbint Component Library includes an MCP (Model Context Protocol) server that enables AI assistants to discover and use the design system programmatically.
+
+### Setup
+
+```bash
+# Install MCP server dependencies
+npm run mcp:install
+
+# Build the MCP server
+npm run mcp:build
+```
+
+### Configure in Cursor IDE
+
+Add to your Cursor MCP settings (`~/.cursor/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "urbint-cl": {
+      "command": "node",
+      "args": ["/path/to/urbint-cl/mcp-server/dist/index.js"]
+    }
+  }
+}
+```
+
+### Available MCP Tools
+
+| Tool | Description |
+|------|-------------|
+| `list_components` | List all components, optionally filter by category |
+| `get_component` | Get detailed component documentation |
+| `search_components` | Search components by name, description, or tags |
+| `get_design_tokens` | Get design tokens (colors, spacing, etc.) |
+| `search_tokens` | Search for specific design tokens |
+| `generate_component_code` | Generate code snippets for components |
+| `get_form_pattern` | Generate form pattern code with validation |
+| `get_layout_pattern` | Generate layout pattern code |
+
+### Example Usage
+
+Once configured, ask your AI assistant:
+
+- "List all form components in the Urbint design system"
+- "Show me how to use the Select component with multi-select"
+- "What colors are available in the design system?"
+- "Generate a login form with email and password"
+- "Show me a dashboard layout pattern"
+
+### Available MCP Resources
+
+- `urbint://docs/overview` - Library overview
+- `urbint://docs/components` - All components
+- `urbint://docs/tokens` - Design tokens
+- `urbint://docs/installation` - Installation guide
+- `urbint://component/{name}` - Individual component docs
+
+---
+
+## Version Compatibility
+
+| urbint-cl | React Native | Expo SDK | Unistyles |
+|-----------|--------------|----------|-----------|
+| 1.x       | 0.81+        | 54+      | 3.0+      |
+
+---
+
+*Last updated: February 2026*
+*Documentation version: 1.2.0*
+

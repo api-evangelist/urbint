@@ -1,0 +1,88 @@
+generated: '2026-09-02'
+method: searched
+source: https://www.urbint.com/platform (fetched 2026-09-02, HTTP 200)
+name: Urbint conformance and compliance
+summary: >-
+  Urbint publishes exactly one compliance claim on its own site — SOC 2 Type 2 — plus a
+  short set of security-practice claims. There is no trust centre, no downloadable
+  report request flow, and no machine-readable contract, so none of the API-level or
+  domain-standard conformance checks in this artifact can be evidenced from a spec.
+  Everything below is either a quoted provider claim or an honest negative.
+compliance:
+- id: soc2-type2
+  name: SOC 2 Type 2
+  conforms: true
+  evidence:
+    quote: "We're SOC 2 Type 2 certified, and used advanced data-at-rest and data-in-transit
+      encryption. We run 24/7 application monitoring, quarterly penetration tests, and
+      have a robust disaster recovery plan."
+    url: https://www.urbint.com/platform
+    section: Industry-leading information security
+    http_status: 200
+    asset: https://5737483.fs1.hubspotusercontent-na1.net/hubfs/5737483/MJTW%20Assets/logos/aicpa-type-2-soc-2-certified.png
+  auditor: not disclosed
+  report_available: no public request path found
+- id: iso-27001
+  name: ISO/IEC 27001
+  conforms: false
+  evidence: no claim found on urbint.com
+- id: hipaa
+  name: HIPAA
+  conforms: false
+  evidence: not applicable — utility operations software, no protected health information
+    claim
+- id: fedramp
+  name: FedRAMP
+  conforms: false
+  evidence: no claim found
+- id: pci-dss
+  name: PCI DSS
+  conforms: false
+  evidence: no payment surface
+standards:
+- id: oauth2
+  conforms: false
+  evidence: no public authentication documentation; the customer portal is Atlassian
+    Jira Service Management, whose auth is Atlassian's, not Urbint's
+- id: openapi
+  conforms: false
+  evidence: 'probed https://www.urbint.com/openapi.json (301), /swagger.json (301),
+    /api-docs (301), and the same paths on customer.support.urbint.com (404 each) —
+    no OpenAPI published'
+- id: asyncapi
+  conforms: false
+  evidence: no event, webhook or streaming surface documented
+- id: rfc9457
+  conforms: false
+  evidence: no error contract published
+- id: mcp
+  name: Model Context Protocol
+  conforms: true
+  evidence:
+    detail: '@urbint/cl bundles an MCP server built on @modelcontextprotocol/sdk ^1.0.0
+      implementing ListTools/CallTool/ListResources/ReadResource over StdioServerTransport'
+    source: https://registry.npmjs.org/@urbint/cl/-/cl-1.0.1-3.tgz (package/mcp-server/src/index.ts)
+    artifact: mcp/urbint-mcp.yml
+- id: llmstxt
+  name: llms.txt
+  conforms: partial
+  evidence:
+    detail: an llms.txt is published for the @urbint/cl design system inside the npm
+      package, but not served from any Urbint web host — GET https://www.urbint.com/llms.txt
+      returns 301 to na.itron.com
+    artifact: llms/urbint-cl-llms.txt
+domain_standards:
+  market: North American utility damage prevention / one-call (811)
+  candidates_considered:
+  - name: One Call / 811 locate ticket exchange
+    note: Urbint's TMS ingests one-call ticket data and Positive Response codes, and
+      the CGA DIRT programme is referenced in Urbint marketing material. Positive
+      Response code sets are published per state one-call centre, not by Urbint.
+  - name: CGA DIRT (Damage Information Reporting Tool)
+    note: referenced in Urbint resources; no conformance claim made by Urbint
+  conforms: unknown
+  evidence: >-
+    domain_standard_conformance is read from a published contract, and Urbint publishes
+    none. No 811/Positive Response/DIRT message shape, schema or endpoint is declared
+    anywhere public, so this cannot be scored either way. Recorded as unknown rather
+    than false so it is not mistaken for a measured absence in the contract.

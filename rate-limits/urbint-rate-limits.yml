@@ -1,0 +1,25 @@
+generated: '2026-09-02'
+method: searched
+source: contract-discovery probes of every Urbint host, 2026-09-02
+name: Urbint rate limits
+limit_count: 0
+limits: []
+response_headers: []
+exhaustion_status: null
+note: >-
+  Urbint documents no rate limits, because it documents no API. Contract discovery
+  found no OpenAPI, Swagger, GraphQL SDL, AsyncAPI or Postman collection on any host
+  it controls, and there is no developer portal or API reference in which limits could
+  be stated. An honest zero, not an unchecked field. The one machine surface Urbint
+  ships — the @urbint/cl MCP server — runs locally over stdio against a bundled static
+  registry, so it has no network quota to publish.
+evidence:
+- url: https://www.urbint.com/openapi.json
+  status: 301
+- url: https://www.urbint.com/api-docs
+  status: 301
+- url: https://customer.support.urbint.com/openapi.json
+  status: 404
+- url: https://www.urbint.com/sitemap.xml
+  status: 200
+  finding: no developer, docs or api page among the 61 listed URLs

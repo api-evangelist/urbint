@@ -1,17 +1,39 @@
 aid: urbint
 name: Urbint
-description: 'Urbint is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Urbint builds AI-powered operational resilience software for gas, electric
+  and telecom utilities, predicting and preventing incidents before they happen across
+  three product lines: Worker Safety, Damage Prevention (including a modern 811 locate-ticket
+  management system), and Emergency Preparedness & Response / storm response. Its
+  "Model of the World" fuses weather, topography, environmental, community and infrastructure
+  data with a customer''s own work, asset and outage data to score the risk on individual
+  jobs and locate tickets. Urbint raised venture funding from Energy Impact Partners,
+  Piva Capital, Energize Ventures, Blue Bear Capital, National Grid Partners, Fifth
+  Wall, Salesforce Ventures and S2G, acquired Opvantek, WRM Software, Competers and
+  iRestore, and was itself acquired by Itron for $325M in a deal announced 6 October
+  2025. Urbint ships no public API program; its only public developer surface is a
+  first-party npm design system, @urbint/cl, which bundles a local-stdio MCP server.'
+image: https://5737483.fs1.hubspotusercontent-na1.net/hubfs/5737483/MJTW%20Assets/dev/logos/urbint-logo@2x.svg
 url: https://raw.githubusercontent.com/api-evangelist/urbint/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment-pass
+x-parent-company: itron
 specificationVersion: '0.20'
 created: '2026-09-02'
 modified: '2026-09-02'
 tags:
 - Company
+- Utilities
+- Energy
+- Artificial Intelligence
+- Machine Learning
+- Worker Safety
+- Risk Management
+- Damage Prevention
+- Infrastructure
+- Geospatial
+- Acquired
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -20,4 +42,35 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://forgeglobal.com/urbint_stock/
+  url: https://www.urbint.com/company
+- type: Support
+  url: https://customer.support.urbint.com/
+- type: GitHubOrganization
+  url: https://github.com/urbint
+- type: TermsOfService
+  url: https://www.urbint.com/terms
+- type: PrivacyPolicy
+  url: https://www.urbint.com/privacy-policy
+- type: Packages
+  url: packages/urbint-packages.yml
+- type: Components
+  url: components/urbint-components.yml
+- type: MCPServer
+  url: mcp/urbint-mcp.yml
+- type: LLMsTxt
+  url: llms/urbint-llms.txt
+- type: DomainSecurity
+  url: security/urbint-domain-security.yml
+- type: Conformance
+  url: conformance/urbint-conformance.yml
+- type: Compliance
+  url: conformance/urbint-conformance.yml
+- type: Plans
+  url: plans/urbint-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/urbint-rate-limits.yml
+x-enrichment:
+  date: '2026-09-02'
+  status: enriched
+  artifacts_added: 11
+  pass: local-v1

@@ -1,0 +1,105 @@
+# Urbint
+
+> Urbint builds AI-powered operational resilience software for gas, electric and telecom
+> utilities — predicting and preventing incidents before they happen. It is now part of
+> Itron, which announced a $325M acquisition on 6 October 2025.
+
+Provenance: generated 2026-09-02 by the API Evangelist enrichment pipeline from this
+repository's apis.yml and artifacts. Urbint does not serve an llms.txt from
+www.urbint.com (`GET /llms.txt` returns 301 to na.itron.com). This file is API
+Evangelist's summary of Urbint, not a document Urbint published. The one llms.txt
+Urbint *does* publish ships inside its npm design-system package and is captured
+verbatim alongside this file.
+
+## What Urbint sells
+
+- Urbint for Worker Safety — risk scoring on individual field jobs, tailboard/job
+  briefing workflows, and safety assurance across planning, execution and reporting.
+- Urbint for Damage Prevention — protecting buried gas, electric and telecom assets
+  from third-party excavation damage.
+- Urbint Ticket Management System (TMS) — 811 one-call locate ticket intake, GIS and
+  Positive Response integration, automated routing/assignment/clearing, QA/QC audits,
+  damage capture, mobile online/offline field app, and reporting.
+- Emergency Preparedness & Response / Storm Response — hurricane and storm impact
+  prediction, damage and outage forecasting, and restoration resource planning.
+  (Includes StormImpact, which received NASA Ignite Phase II funding.)
+- The "Model of the World" — a dynamic model of the natural and built environment in a
+  utility's service territory: weather, topography, environment, essential operations,
+  community and infrastructure layers joined to the customer's own work and asset data.
+
+## API surface
+
+Urbint has no public API program. As of 2026-09-02 there is:
+
+- No developer portal, no API reference, no getting-started guide.
+- No OpenAPI, Swagger, GraphQL SDL, AsyncAPI or Postman collection at any probed
+  location on www.urbint.com or customer.support.urbint.com.
+- No published rate limits, no published plans or pricing, no sandbox, no changelog,
+  no status page, no A2A agent card.
+- Product-level integration is real but private: Urbint's damage-prevention product
+  integrates with third-party locate companies, one-call centres, GIS and enterprise
+  asset/work-management systems, and its worker-safety product connects to existing
+  safety management and work management tools. Those integrations are delivered by
+  Urbint under customer contract; no contract for them is published.
+- A "Reporting API" has been mentioned in Urbint customer-summit material, but no
+  public documentation for it exists.
+
+## Public developer surface that does exist
+
+- GitHub organization: https://github.com/urbint — 60 public repositories, 59 of them
+  archived forks of open-source Elixir/Haskell/Go/Python libraries from 2015-2023. Only
+  `github-actions-library` has been touched recently (2026-08-21). No product repo.
+- npm `@urbint/cl` (v1.0.1-3, published 2026-02-10, MIT) — the Urbint Component
+  Library, an enterprise React Native design system with 40+ components for
+  iOS/Android/Web. Ships its own `llms.txt` and a local-stdio MCP server.
+- npm `@urbint/map-ui` (v0.0.1, published 2026-04-06) — a single unpopulated publish
+  depending on mapbox-gl; effectively a name reservation.
+
+## MCP
+
+Urbint ships one MCP server, `urbint-cl`, bundled inside the `@urbint/cl` npm package
+as `mcp-server/`. It is local-stdio only — there is no hosted endpoint — and it must be
+compiled from the TypeScript source in the tarball before it will run. It exposes eight
+tools (`list_components`, `get_component`, `search_components`, `get_design_tokens`,
+`search_tokens`, `generate_component_code`, `get_form_pattern`, `get_layout_pattern`)
+and five resource URIs under the `urbint://` scheme. It answers questions about the
+design system; it does not reach Urbint's products or customer data.
+
+## Security and compliance
+
+Urbint states on its platform page that it is SOC 2 Type 2 certified, uses encryption
+at rest and in transit, runs 24/7 application monitoring and quarterly penetration
+tests, and maintains a disaster recovery plan. There is no trust centre, no published
+vulnerability disclosure policy and no first-party security.txt — the security.txt
+served at customer.support.urbint.com belongs to Atlassian, whose Jira Service
+Management hosts that portal.
+
+## Corporate
+
+- Headquarters: 1270 Ave of the Americas, 7th Fl, New York, NY 10020 (Itron's
+  acquisition announcement described Urbint as Miami, Florida based).
+- Investors: Energy Impact Partners, Piva Capital, Energize Ventures, Blue Bear
+  Capital, National Grid Partners, Fifth Wall, Salesforce Ventures, S2G.
+- Acquisitions made: Opvantek (2019), WRM Software, Competers, iRestore.
+- Acquired by Itron for $325M, announced 2025-10-06 (Itron Form 8-K, 6 October 2025).
+- The blog has been emptied into Itron's: the /blog index and its RSS feed still
+  answer 200 but carry no posts at all.
+- The marketing site is mid-migration: https://www.urbint.com/ and the solution,
+  blog-post and careers URLs now 301 to na.itron.com or itron.com, while /company,
+  /platform, /blog, /news, /terms and /privacy-policy still serve from urbint.com.
+
+## Links
+
+- Company: https://www.urbint.com/company
+- Platform: https://www.urbint.com/platform
+- Blog index (live, but EMPTY — https://www.urbint.com/blog/rss.xml returns 200 with
+  zero <item> entries and the listing renders no post links; individual posts such as
+  /blog/urbint-storm-manager-summit-2025-recap now 301 to na.itron.com/blog):
+  https://www.urbint.com/blog
+- News: https://www.urbint.com/news
+- Support (Jira Service Management, login required): https://customer.support.urbint.com/
+- GitHub: https://github.com/urbint
+- Terms: https://www.urbint.com/terms
+- Privacy: https://www.urbint.com/privacy-policy
+- Successor product page at Itron: https://na.itron.com/what-we-offer/resiliency-solutions-overview
+- Urbint Component Library llms.txt (verbatim, provider-authored): llms/urbint-cl-llms.txt

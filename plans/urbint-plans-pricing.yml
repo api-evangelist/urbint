@@ -1,0 +1,28 @@
+generated: '2026-09-02'
+method: searched
+source: https://www.urbint.com/sitemap.xml + https://www.urbint.com/platform +
+  https://www.urbint.com/solutions/ticket-management-system (all fetched 2026-09-02)
+name: Urbint plans and pricing
+plan_count: 0
+plans: []
+currency: null
+billing_model: enterprise contract, quote only
+note: >-
+  Urbint publishes no pricing of any kind. There is no /pricing page — the sitemap
+  lists 61 pages and none is a pricing, plans or tiers page — and every solution page
+  ends in a "Request demo" / "Get in touch" call to action rather than a rate card or
+  self-serve sign-up. There is no free tier, no trial, and no sign-up flow; the only
+  authenticated surface is a Jira Service Management portal for existing customers.
+  This is a direct-sales enterprise utility software motion, and after the Itron
+  acquisition the commercial surface is moving to Itron's sales organisation
+  altogether.
+evidence:
+- url: https://www.urbint.com/sitemap.xml
+  status: 200
+  finding: 61 page URLs, no /pricing or /plans
+- url: https://www.urbint.com/solutions/ticket-management-system
+  status: 200
+  finding: '"Request demo" / "Get in touch" only'
+- url: https://www.urbint.com/platform
+  status: 200
+  finding: '"Uncover the Urbint advantage. Request Demo" — no pricing'

@@ -1,0 +1,168 @@
+generated: '2026-09-02'
+method: searched
+source: https://registry.npmjs.org/@urbint/cl/-/cl-1.0.1-3.tgz (package/mcp-server/,
+  downloaded and read 2026-09-02)
+name: Urbint Component Library MCP Server
+server_name: urbint-cl
+package_name: '@urbint/cl-mcp-server'
+version: 1.0.0
+license: MIT
+author: Urbint
+summary: >-
+  Urbint ships a real, first-party MCP server — but it serves the design system, not
+  the product. It is bundled inside the @urbint/cl npm package as mcp-server/, built
+  from TypeScript source, and run over stdio so an AI assistant can discover
+  components, read props and examples, look up design tokens, and generate React
+  Native code snippets against the Urbint Component Library. There is no hosted
+  remote MCP endpoint, and no MCP surface over Urbint's actual worker-safety,
+  damage-prevention or storm-response products.
+deployment:
+  mode: local-stdio
+  endpoint: null
+  install: "npm install @urbint/cl && cd node_modules/@urbint/cl/mcp-server && npm install && npm run build"
+  package: https://www.npmjs.com/package/@urbint/cl
+  auth: none
+  verified: probed
+  note: >-
+    @urbint/cl-mcp-server is NOT published to npm as its own package (registry
+    returns 404); it only exists as source inside the @urbint/cl tarball and must be
+    compiled locally. The vendor's own client config
+    (package/mcp-config.example.json) is
+    {"mcpServers":{"urbint-cl":{"command":"node","args":["__REPLACE_WITH_ABSOLUTE_PATH__/mcp-server/dist/index.js"],"env":{}}}}
+    — i.e. an absolute path to a build artifact the consumer produces. No agent can
+    reach this server without a human building it first.
+transport: stdio
+sdk: '@modelcontextprotocol/sdk ^1.0.0'
+runtime: node >=18
+capabilities:
+  tools: true
+  resources: true
+  prompts: false
+tools:
+- name: list_components
+  description: List all available components in the Urbint Component Library. Can
+    filter by category.
+  input_schema:
+    type: object
+    properties:
+      category:
+        type: string
+        description: 'Filter by category: layout, typography, form, feedback, data-display,
+          overlay, action, utility'
+        enum: [layout, typography, form, feedback, data-display, overlay, action, utility]
+- name: get_component
+  description: Get detailed documentation for a specific component including props,
+    examples, and related components.
+  input_schema:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Component name (e.g., Button, Input, Card, Modal)
+    required: [name]
+- name: search_components
+  description: Search for components by name, description, or functionality tags.
+  input_schema:
+    type: object
+    properties:
+      query:
+        type: string
+        description: Search query (e.g., "button", "form", "modal", "loading")
+    required: [query]
+- name: get_design_tokens
+  description: Get design tokens (colors, spacing, typography, border radius, elevation)
+    for the design system.
+  input_schema:
+    type: object
+    properties:
+      category:
+        type: string
+        description: Token category to retrieve
+        enum: [colors, spacing, typography, borderRadius, elevation, all]
+- name: search_tokens
+  description: Search for specific design tokens by name or description.
+  input_schema:
+    type: object
+    properties:
+      query:
+        type: string
+        description: Search query (e.g., "blue", "padding", "heading")
+    required: [query]
+- name: generate_component_code
+  description: Generate code snippet for a component with specific configuration.
+  input_schema:
+    type: object
+    properties:
+      component:
+        type: string
+        description: Component name
+      variant:
+        type: string
+        description: Component variant (if applicable)
+      withState:
+        type: boolean
+        description: Include useState hook for controlled components
+      props:
+        type: object
+        description: Additional props to include
+    required: [component]
+- name: get_form_pattern
+  description: Get a complete form pattern code snippet with validation and styling.
+  input_schema:
+    type: object
+    properties:
+      fields:
+        type: array
+        description: Form fields configuration
+        items:
+          type: object
+          properties:
+            name: {type: string}
+            type: {type: string, enum: [text, email, password, select, checkbox, textarea, date]}
+            label: {type: string}
+            required: {type: boolean}
+      includeValidation:
+        type: boolean
+        description: Include validation logic
+    required: [fields]
+- name: get_layout_pattern
+  description: Get a layout pattern code snippet (card grid, sidebar, header, etc.)
+  input_schema:
+    type: object
+    properties:
+      pattern:
+        type: string
+        description: Layout pattern type
+        enum: [card-grid, sidebar-layout, header-content, list-detail, dashboard, form-layout]
+    required: [pattern]
+tool_count: 8
+resources:
+- uri: urbint://docs/overview
+  name: Overview
+  description: Urbint Component Library overview and getting started guide
+  mime_type: text/markdown
+- uri: urbint://docs/components
+  name: Components
+  description: Complete list of all available components
+  mime_type: text/markdown
+- uri: urbint://docs/tokens
+  name: Design Tokens
+  description: All design tokens (colors, spacing, typography, etc.)
+  mime_type: text/markdown
+- uri: urbint://docs/installation
+  name: Installation
+  description: Installation and setup instructions
+  mime_type: text/markdown
+- uri: urbint://component/{name}
+  name: Component documentation
+  description: Per-component documentation, one resource per entry in the component
+    registry
+  mime_type: text/markdown
+  template: true
+resource_count: 5
+docs: https://registry.npmjs.org/@urbint/cl (README) and package/mcp-server/README.md
+  inside the tarball
+crosswalk: null
+crosswalk_note: No tool crosswalk is emitted — a crosswalk binds MCP tools to backing
+  OpenAPI operationIds, and Urbint publishes no OpenAPI or GraphQL surface. These
+  tools read a bundled static component/token registry, not a remote API.
