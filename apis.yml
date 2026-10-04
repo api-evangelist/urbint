@@ -27,7 +27,7 @@ tags:
 - Utilities
 - Energy
 - Artificial Intelligence
-- Machine-Learning
+- Machine Learning
 - Worker Safety
 - Risk Management
 - Damage Prevention
@@ -46,6 +46,7 @@ tags_raw:
 - Infrastructure
 - Geospatial
 - Acquired
+- Machine-Learning
 apis: []
 maintainers:
 - FN: Kin Lane
