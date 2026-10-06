@@ -21,7 +21,7 @@ x-tier-reason: enrichment-pass
 x-parent-company: itron
 specificationVersion: '0.20'
 created: '2026-09-02'
-modified: '2026-09-02'
+modified: '2026-10-06'
 tags:
 - Company
 - Utilities
@@ -54,6 +54,10 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- url: https://www.urbint.com/news
+  type: Blog
+- url: https://www.urbint.com/news/rss.xml
+  type: BlogRSS
 - type: Website
   url: https://www.urbint.com/company
 - type: Support
